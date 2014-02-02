@@ -32,4 +32,4 @@ Run the scripts available in folder ```tests```.
 tests/put_some_stuff.sh
 tests/list_vins.sh
 tests/read_testvin_json.sh
-``
+```
