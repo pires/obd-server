@@ -60,10 +60,10 @@ public class ObdServer {
   private static final Logger logger = Logger.getLogger(ObdServer.class
       .getName());
 
-  @Option(name = "-p", usage = "system port to bind", metaVar = "PORT")
+  @Option(name = "--port", usage = "system port to bind", metaVar = "PORT")
   private int port = 8080;
 
-  @Option(name = "-pa", usage = "admin port to bind", metaVar = "PORT_ADMIN")
+  @Option(name = "--adminPort", usage = "admin port to bind", metaVar = "PORT_ADMIN")
   private int portAdmin = 4848;
 
   @Option(name = "--help", usage = "show help")
