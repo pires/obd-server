@@ -31,27 +31,40 @@ import pt.lighthouselabs.obd.server.model.ObdReading_;
 @Stateless
 public class ObdReadingDao extends AbstractDao<ObdReading> {
 
-  public ObdReadingDao() {
-    super(ObdReading.class);
-  }
+	public ObdReadingDao() {
+		super(ObdReading.class);
+	}
 
-  /**
-   * Finds all {@link ObdReading} related to a certain vehicle.
-   * 
-   * @param vin
-   *          the Vehicle Identification Number
-   * @return a list of all {@link ObdReading} related to a certain vehicle.
-   */
-  public List<ObdReading> find_all_readings_by_vin(final String vin) {
-    checkNotNull(vin, "No Vehicle ID was provided to search for.");
-    CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-    CriteriaQuery<ObdReading> cq = cb.createQuery(ObdReading.class);
-    Root<ObdReading> user = cq.from(ObdReading.class);
-    // compare lowercase all the time
-    Predicate vinEquals = cb.equal(cb.lower(user.get(ObdReading_.vin)),
-        vin.toLowerCase());
-    cq.where(vinEquals);
-    return getEntityManager().createQuery(cq).getResultList();
-  }
+	/**
+	 * Finds all VINs.
+	 * 
+	 * @return a list of all VINs persisted.
+	 */
+	public List<String> find_all_vins() {
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<String> cq = cb.createQuery(String.class);
+		Root<ObdReading> reading = cq.from(ObdReading.class);
+		cq.distinct(true).select(reading.get(ObdReading_.vin));
+		return getEntityManager().createQuery(cq).getResultList();
+	}
+
+	/**
+	 * Finds all {@link ObdReading} related to a certain vehicle.
+	 * 
+	 * @param vin
+	 *            the Vehicle Identification Number
+	 * @return a list of all {@link ObdReading} related to a certain vehicle.
+	 */
+	public List<ObdReading> find_all_readings_by_vin(final String vin) {
+		checkNotNull(vin, "No Vehicle ID was provided to search for.");
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<ObdReading> cq = cb.createQuery(ObdReading.class);
+		Root<ObdReading> reading = cq.from(ObdReading.class);
+		// compare lowercase all the time
+		Predicate vinEquals = cb.equal(cb.lower(reading.get(ObdReading_.vin)),
+				vin.toLowerCase());
+		cq.where(vinEquals);
+		return getEntityManager().createQuery(cq).getResultList();
+	}
 
 }
