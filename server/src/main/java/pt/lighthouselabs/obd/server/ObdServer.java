@@ -95,8 +95,8 @@ public class ObdServer {
       logger.info("Initiliazing OBD server..");
       // set-up embedded Glassfish instance
       GlassFishProperties gfProperties = new GlassFishProperties();
-      final String domainXmlPath = new File(
-          "server/target/classes/domain.xml").toURI().toString();
+      final String domainXmlPath = new File("server/target/classes/domain.xml")
+          .toURI().toString();
       logger.info("domain.xml -> " + domainXmlPath);
       gfProperties.setConfigFileURI(domainXmlPath);
       gfProperties.setPort("admin-listener", portAdmin);
@@ -132,8 +132,8 @@ public class ObdServer {
         archive.addMetadata(new File("model/src/main/resources/META-INF",
             "persistence.xml"));
         archive.addClassPath(new File("rest/target", "classes"));
-        archive.addMetadata(new File("rest/src/main/webapp/WEB-INF",
-            "web.xml"));
+        archive
+            .addMetadata(new File("rest/src/main/webapp/WEB-INF", "web.xml"));
 
         // deploy the scattered web archive.
         server.getDeployer().deploy(archive.toURI(), "--contextroot=/obd");

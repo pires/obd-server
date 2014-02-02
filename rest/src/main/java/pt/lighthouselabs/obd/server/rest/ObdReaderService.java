@@ -48,44 +48,44 @@ import pt.lighthouselabs.obd.server.rest.api.ObdReadingDTO;
 @Path("/")
 public class ObdReaderService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ObdReaderService.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(ObdReaderService.class);
 
-	@EJB
-	private ObdReadingDao orDao;
+  @EJB
+  private ObdReadingDao orDao;
 
-	@PUT
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response handleNewObdReading(final ObdReadingDTO dto) {
-		logger.info("Received new reading {}", dto);
-		checkNotNull(dto);
-		// persist entity
-		orDao.create(ObdReadingDTO.toEntity(dto));
-		return Response.ok().build();
-	}
+  @PUT
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Response handleNewObdReading(final ObdReadingDTO dto) {
+    logger.info("Received new reading {}", dto);
+    checkNotNull(dto);
+    // persist entity
+    orDao.create(ObdReadingDTO.toEntity(dto));
+    return Response.ok().build();
+  }
 
-	@GET
-	@Path("/vin")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<String> retrieveVINs() {
-		return orDao.find_all_vins();
-	}
+  @GET
+  @Path("/vin")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<String> retrieveVINs() {
+    return orDao.find_all_vins();
+  }
 
-	/**
-	 * Retrieves all {@link ObdReading} related to a parameterized vehicle.
-	 * 
-	 * @param vin
-	 *            the Vehicle Identification Number
-	 * @return all {@link ObdReading} related to a parameterized vehicle.
-	 */
-	@GET
-	@Path("/vin/{vin}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<ObdReadingDTO> retrieveObdReadingsByVIN(
-			@PathParam("vin") final String vin) {
-		checkNotNull(vin);
-		return ObdReadingDTO.fromEntities(orDao.find_all_readings_by_vin(vin));
+  /**
+   * Retrieves all {@link ObdReading} related to a parameterized vehicle.
+   * 
+   * @param vin
+   *          the Vehicle Identification Number
+   * @return all {@link ObdReading} related to a parameterized vehicle.
+   */
+  @GET
+  @Path("/vin/{vin}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<ObdReadingDTO> retrieveObdReadingsByVIN(
+      @PathParam("vin") final String vin) {
+    checkNotNull(vin);
+    return ObdReadingDTO.fromEntities(orDao.find_all_readings_by_vin(vin));
 
-	}
+  }
 
 }
