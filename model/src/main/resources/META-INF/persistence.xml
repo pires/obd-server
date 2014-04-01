@@ -4,31 +4,18 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
   version="2.1">
   <persistence-unit name="PU" transaction-type="JTA">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>jdbc/OBDDS</jta-data-source>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>
       <property name="hibernate.transaction.jta.platform"
         value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform" />
-
-      <!-- SQL stuff -->
-      <property name="javax.persistence.schema-generation.database.action"
-        value="drop-and-create" />
-      <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" 
-        /> -->
-      <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyDialect" />
-      <property name="hibernate.listeners.envers.autoRegister"
-        value="false" />
-      <property name="hibernate.show_sql" value="false" />
-
-      <!-- Performance tuning -->
-      <property name="hibernate.default_batch_fetch_size"
-        value="8" />
-      <property name="hibernate.max_fetch_depth" value="3" />
-
-      <!-- L2 Caching -->
-      <property name="hibernate.cache.use_second_level_cache"
-        value="false" />
+      <property name="hibernate.dialect"
+        value="org.hibernate.dialect.DerbyTenSevenDialect" />
+      <property name="hibernate.hbm2ddl.auto" value="create" />
+      <property name="hibernate.show_sql" value="true" />
+      <property name="hibernate.id.new_generator_mappings" value="true" />
+        <property name="hibernate.cache.use_second_level_cache" value="false" />
     </properties>
   </persistence-unit>
 </persistence>
