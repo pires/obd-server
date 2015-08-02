@@ -2,4 +2,4 @@
 
 curl \
      -i \
-     "http://localhost:8080/obd/vin/testvin"
+     "http://localhost:8080/obd/?vin=testvin"
