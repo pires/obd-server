@@ -13,7 +13,7 @@ spring.jmx:
 
 spring.datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:obd;MODE=MySQL
+    url: jdbc:h2:mem:obd;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE
 
 server:
   port: 8080
